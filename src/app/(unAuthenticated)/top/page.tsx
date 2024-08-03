@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
+import React from "react";
 
 export default function Top() {
-  return <Box>こんにちは、世界！</Box>;
+  return <Box>top</Box>;
 }
