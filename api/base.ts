@@ -83,7 +83,7 @@ interface ServerMap {
  * @export
  */
 export const operationServerMap: ServerMap = {
-    "DefaultApi.getApod": [
+    "APODApi.getApod": [
         {
             url: "https://api.nasa.gov",
             description: "No description provided",

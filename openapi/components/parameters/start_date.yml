@@ -1,0 +1,7 @@
+name: start_date
+in: query
+description: 日付範囲の開始日。日付範囲でのデータを要求する場合に使用。`date`と一緒に使用できません。
+required: false
+schema:
+  type: string
+  format: date

@@ -78,12 +78,37 @@ export interface APODResponse {
      */
     'copyright'?: string;
 }
+/**
+ * 
+ * @export
+ * @interface NASABadResponse
+ */
+export interface NASABadResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof NASABadResponse
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof NASABadResponse
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NASABadResponse
+     */
+    'service_version'?: string;
+}
 
 /**
- * DefaultApi - axios parameter creator
+ * APODApi - axios parameter creator
  * @export
  */
-export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
+export const APODApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 天文学の画像日報（APOD）を取得します。
@@ -110,7 +135,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarQueryParameter = {} as any;
 
             // authentication apiKeyAuth required
-            await setApiKeyToObject(localVarQueryParameter, "X-API-KEY", configuration)
+            await setApiKeyToObject(localVarQueryParameter, "api_key", configuration)
 
             if (date !== undefined) {
                 localVarQueryParameter['date'] = (date as any instanceof Date) ?
@@ -153,11 +178,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 };
 
 /**
- * DefaultApi - functional programming interface
+ * APODApi - functional programming interface
  * @export
  */
-export const DefaultApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
+export const APODApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = APODApiAxiosParamCreator(configuration)
     return {
         /**
          * 天文学の画像日報（APOD）を取得します。
@@ -170,21 +195,21 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getApod(date?: string, startDate?: string, endDate?: string, count?: number, thumbs?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<any>>> {
+        async getApod(date?: string, startDate?: string, endDate?: string, count?: number, thumbs?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<APODResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getApod(date, startDate, endDate, count, thumbs, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DefaultApi.getApod']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['APODApi.getApod']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * DefaultApi - factory interface
+ * APODApi - factory interface
  * @export
  */
-export const DefaultApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = DefaultApiFp(configuration)
+export const APODApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = APODApiFp(configuration)
     return {
         /**
          * 天文学の画像日報（APOD）を取得します。
@@ -197,19 +222,19 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getApod(date?: string, startDate?: string, endDate?: string, count?: number, thumbs?: boolean, options?: any): AxiosPromise<Array<any>> {
+        getApod(date?: string, startDate?: string, endDate?: string, count?: number, thumbs?: boolean, options?: any): AxiosPromise<APODResponse> {
             return localVarFp.getApod(date, startDate, endDate, count, thumbs, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * DefaultApi - object-oriented interface
+ * APODApi - object-oriented interface
  * @export
- * @class DefaultApi
+ * @class APODApi
  * @extends {BaseAPI}
  */
-export class DefaultApi extends BaseAPI {
+export class APODApi extends BaseAPI {
     /**
      * 天文学の画像日報（APOD）を取得します。
      * @summary 天文学の画像日報
@@ -220,10 +245,10 @@ export class DefaultApi extends BaseAPI {
      * @param {boolean} [thumbs] ビデオのサムネイルのURLを返します。APODがビデオでない場合、このパラメータは無視されます。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof APODApi
      */
     public getApod(date?: string, startDate?: string, endDate?: string, count?: number, thumbs?: boolean, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getApod(date, startDate, endDate, count, thumbs, options).then((request) => request(this.axios, this.basePath));
+        return APODApiFp(this.configuration).getApod(date, startDate, endDate, count, thumbs, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

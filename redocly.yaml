@@ -1,7 +1,7 @@
 apis:
   space_share@v1:
     root: openapi/openapi.yml
-    output: openapi/dict/openapi.yml
+    output: ./openapi.yml
 extends:
   - recommended
 rules:

@@ -3,21 +3,17 @@ info:
   title: Space Share API
   version: 1.0.0
   description: Space Share API
-  license:
-    name: MIT
-    url: https://opensource.org/licenses/MIT
 servers:
   - url: https://api.nasa.gov
     description: NASA API server
+  - url: http://localhost:8080
+    description: Local server
 paths:
-  "/planetary/apod":
-    $ref: "./paths/nasa/apod.yml"
+  /planetary/apod:
+    $ref: paths/planetary_apod.yml
 components:
-  schemas:
-    $ref: "./components/schemas/index.yml"
-  parameters:
-    $ref: "./components/parameters/index.yml"
-  responses:
-    $ref: "./components/responses/index.yml"
   securitySchemes:
-    $ref: "./components/security/index.yml"
+    apiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key

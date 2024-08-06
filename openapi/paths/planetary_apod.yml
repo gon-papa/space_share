@@ -1,0 +1,21 @@
+get:
+  servers:
+    - url: https://api.nasa.gov
+  tags:
+    - APOD
+  operationId: getApod
+  summary: 天文学の画像日報
+  description: 天文学の画像日報（APOD）を取得します。
+  parameters:
+    - $ref: ../components/parameters/date.yml
+    - $ref: ../components/parameters/start_date.yml
+    - $ref: ../components/parameters/end_date.yml
+    - $ref: ../components/parameters/count.yml
+    - $ref: ../components/parameters/thumbs.yml
+  security:
+    - apiKeyAuth: []
+  responses:
+    "200":
+      $ref: ../components/responses/APODSuccess.yml
+    "400":
+      $ref: ../components/responses/APODError.yml

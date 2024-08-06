@@ -3,17 +3,18 @@ info:
   title: Space Share API
   version: 1.0.0
   description: Space Share API
-  license:
-    name: MIT
-    url: https://opensource.org/licenses/MIT
 servers:
   - url: https://api.nasa.gov
     description: NASA API server
+  - url: http://localhost:8080
+    description: Local server
 paths:
   /planetary/apod:
     get:
       servers:
         - url: https://api.nasa.gov
+      tags:
+        - APOD
       operationId: getApod
       summary: 天文学の画像日報
       description: 天文学の画像日報（APOD）を取得します。
@@ -27,47 +28,15 @@ paths:
         - apiKeyAuth: []
       responses:
         '200':
-          content:
-            application/json:
-              schema:
-                items:
-                  x-thing: ok
-                type: array
-          description: successful operation
+          $ref: '#/components/responses/APODSuccess'
         '400':
-          description: Date must be between Jun 16, 1995 and Mar 28, 2019.
+          $ref: '#/components/responses/APODError'
 components:
-  schemas:
-    APODResponse:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-          description: APOD画像の日付
-        explanation:
-          type: string
-          description: APOD画像の説明
-        url:
-          type: string
-          format: uri
-          description: APOD画像のURL
-        hdurl:
-          type: string
-          format: uri
-          description: 高解像度APOD画像のURL
-        media_type:
-          type: string
-          description: メディアの種類（画像またはビデオ）
-        service_version:
-          type: string
-          description: サービスのバージョン
-        title:
-          type: string
-          description: APOD画像のタイトル
-        copyright:
-          type: string
-          description: APOD画像の著作権情報（利用可能な場合）
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
   parameters:
     date:
       name: date
@@ -107,6 +76,57 @@ components:
       required: false
       schema:
         type: boolean
+  schemas:
+    APODResponse:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: APOD画像の日付
+          example: '2021-07-01'
+        explanation:
+          type: string
+          description: APOD画像の説明
+          example: Explanation of the APOD image.
+        url:
+          type: string
+          format: uri
+          description: APOD画像のURL
+          example: https://hoge/hoge.jpg
+        hdurl:
+          type: string
+          format: uri
+          description: 高解像度APOD画像のURL
+          example: https://hoge/hoge_hd.jpg
+        media_type:
+          type: string
+          description: メディアの種類（画像またはビデオ）
+          example: image
+        service_version:
+          type: string
+          description: サービスのバージョン
+          example: v1
+        title:
+          type: string
+          description: APOD画像のタイトル
+          example: APOD Title
+        copyright:
+          type: string
+          description: APOD画像の著作権情報（利用可能な場合）
+          example: © 2021 NASA
+    NASABadResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        msg:
+          type: string
+          example: Date must be between Jun 16, 1995 and Aug 06, 2024.
+        service_version:
+          type: string
+          example: v1
   responses:
     APODSuccess:
       description: 成功したレスポンス
@@ -114,8 +134,9 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/APODResponse'
-  securitySchemes:
-    apiKeyAuth:
-      type: apiKey
-      in: query
-      name: X-API-KEY
+    APODError:
+      description: リクエストが不正な場合
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NASABadResponse'

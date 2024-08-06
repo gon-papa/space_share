@@ -1,0 +1,7 @@
+name: date
+in: query
+description: 取得したいAPOD画像の日付
+required: false
+schema:
+  type: string
+  format: date
