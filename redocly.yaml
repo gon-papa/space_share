@@ -6,6 +6,7 @@ extends:
   - recommended
 rules:
   info-license: off
+  no-server-example.com: off
   no-unused-components: error
   my-local-plugin/query-param-snake-case: error
   my-local-plugin/schema-property-snake-case: error

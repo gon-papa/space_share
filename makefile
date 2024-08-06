@@ -10,4 +10,7 @@ openapi-lint:
 schema:
 	make openapi-lint
 	make openapi
-	npx openapi-generator-cli generate -i ./openapi.yml -g typescript-axios -o ./api
+	npx openapi-generator-cli generate -i ./openapi.yml -g typescript-axios -o ./src/api
+
+openapi-split: # 一枚のopenapi.ymlを複数のファイルに分割する(確定後はほぼ使用することはない)
+	npx redocly split openapi.yml --outDir=./openapi 
