@@ -1,0 +1,6 @@
+name: count
+in: query
+description: 指定した場合、ランダムに選ばれた`count`数の画像が返されます。`date`または`start_date`と`end_date`と一緒に使用できません。
+required: false
+schema:
+  type: integer

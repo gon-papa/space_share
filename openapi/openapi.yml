@@ -1,0 +1,19 @@
+openapi: 3.0.0
+info:
+  title: Space Share API
+  version: 1.0.0
+  description: Space Share API
+servers:
+  - url: https://api.nasa.gov
+    description: NASA API server
+  - url: http://localhost:8080
+    description: Local server
+paths:
+  /planetary/apod:
+    $ref: paths/planetary_apod.yml
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key

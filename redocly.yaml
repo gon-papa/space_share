@@ -1,0 +1,22 @@
+apis:
+  space_share@v1:
+    root: openapi/openapi.yml
+    output: ./openapi.yml
+extends:
+  - recommended
+rules:
+  info-license: off
+  no-unused-components: error
+  my-local-plugin/query-param-snake-case: error
+  my-local-plugin/schema-property-snake-case: error
+  my-local-plugin/operation-id-camel-case: error
+  my-local-plugin/tags-kebab-case: error
+  my-local-plugin/enum-snake-case: error
+theme:
+  openapi:
+    htmlTemplate: ./docs/index.html
+    generateCodeSamples:
+      languages: # Array of language config objects; indicates in which languages to generate code samples.
+        - lang: curl
+        - lang: Node.js
+        - lang: JavaScript
