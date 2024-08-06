@@ -1,0 +1,142 @@
+openapi: 3.0.0
+info:
+  title: Space Share API
+  version: 1.0.0
+  description: Space Share API
+servers:
+  - url: https://api.nasa.gov
+    description: NASA API server
+  - url: http://localhost:8080
+    description: Local server
+paths:
+  /planetary/apod:
+    get:
+      servers:
+        - url: https://api.nasa.gov
+      tags:
+        - APOD
+      operationId: getApod
+      summary: 天文学の画像日報
+      description: 天文学の画像日報（APOD）を取得します。
+      parameters:
+        - $ref: '#/components/parameters/date'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+        - $ref: '#/components/parameters/count'
+        - $ref: '#/components/parameters/thumbs'
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/APODSuccess'
+        '400':
+          $ref: '#/components/responses/APODError'
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+  parameters:
+    date:
+      name: date
+      in: query
+      description: 取得したいAPOD画像の日付
+      required: false
+      schema:
+        type: string
+        format: date
+    start_date:
+      name: start_date
+      in: query
+      description: 日付範囲の開始日。日付範囲でのデータを要求する場合に使用。`date`と一緒に使用できません。
+      required: false
+      schema:
+        type: string
+        format: date
+    end_date:
+      name: end_date
+      in: query
+      description: 日付範囲の終了日。`start_date`と一緒に使用。
+      required: false
+      schema:
+        type: string
+        format: date
+    count:
+      name: count
+      in: query
+      description: 指定した場合、ランダムに選ばれた`count`数の画像が返されます。`date`または`start_date`と`end_date`と一緒に使用できません。
+      required: false
+      schema:
+        type: integer
+    thumbs:
+      name: thumbs
+      in: query
+      description: ビデオのサムネイルのURLを返します。APODがビデオでない場合、このパラメータは無視されます。
+      required: false
+      schema:
+        type: boolean
+  schemas:
+    APODResponse:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: APOD画像の日付
+          example: '2021-07-01'
+        explanation:
+          type: string
+          description: APOD画像の説明
+          example: Explanation of the APOD image.
+        url:
+          type: string
+          format: uri
+          description: APOD画像のURL
+          example: https://hoge/hoge.jpg
+        hdurl:
+          type: string
+          format: uri
+          description: 高解像度APOD画像のURL
+          example: https://hoge/hoge_hd.jpg
+        media_type:
+          type: string
+          description: メディアの種類（画像またはビデオ）
+          example: image
+        service_version:
+          type: string
+          description: サービスのバージョン
+          example: v1
+        title:
+          type: string
+          description: APOD画像のタイトル
+          example: APOD Title
+        copyright:
+          type: string
+          description: APOD画像の著作権情報（利用可能な場合）
+          example: © 2021 NASA
+    NASABadResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        msg:
+          type: string
+          example: Date must be between Jun 16, 1995 and Aug 06, 2024.
+        service_version:
+          type: string
+          example: v1
+  responses:
+    APODSuccess:
+      description: 成功したレスポンス
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/APODResponse'
+    APODError:
+      description: リクエストが不正な場合
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NASABadResponse'

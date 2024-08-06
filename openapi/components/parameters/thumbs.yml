@@ -1,0 +1,6 @@
+name: thumbs
+in: query
+description: ビデオのサムネイルのURLを返します。APODがビデオでない場合、このパラメータは無視されます。
+required: false
+schema:
+  type: boolean

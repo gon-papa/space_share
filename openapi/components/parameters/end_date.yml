@@ -1,0 +1,7 @@
+name: end_date
+in: query
+description: 日付範囲の終了日。`start_date`と一緒に使用。
+required: false
+schema:
+  type: string
+  format: date

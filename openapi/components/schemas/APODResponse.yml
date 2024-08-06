@@ -1,0 +1,37 @@
+type: object
+properties:
+  date:
+    type: string
+    format: date
+    description: APOD画像の日付
+    example: "2021-07-01"
+  explanation:
+    type: string
+    description: APOD画像の説明
+    example: "Explanation of the APOD image."
+  url:
+    type: string
+    format: uri
+    description: APOD画像のURL
+    example: "https://hoge/hoge.jpg"
+  hdurl:
+    type: string
+    format: uri
+    description: 高解像度APOD画像のURL
+    example: "https://hoge/hoge_hd.jpg"
+  media_type:
+    type: string
+    description: メディアの種類（画像またはビデオ）
+    example: image
+  service_version:
+    type: string
+    description: サービスのバージョン
+    example: "v1"
+  title:
+    type: string
+    description: APOD画像のタイトル
+    example: "APOD Title"
+  copyright:
+    type: string
+    description: APOD画像の著作権情報（利用可能な場合）
+    example: "© 2021 NASA"
