@@ -1,0 +1,2 @@
+apiKeyAuth:
+  $ref: "./api_key_auth.yml"

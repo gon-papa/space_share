@@ -1,0 +1,2 @@
+APODSuccess:
+  $ref: "./apod_response.yml#/APODSuccess"

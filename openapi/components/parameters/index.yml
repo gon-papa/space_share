@@ -1,0 +1,10 @@
+date:
+  $ref: "./apod_parameters.yml#/date"
+start_date:
+  $ref: "./apod_parameters.yml#/start_date"
+end_date:
+  $ref: "./apod_parameters.yml#/end_date"
+count:
+  $ref: "./apod_parameters.yml#/count"
+thumbs:
+  $ref: "./apod_parameters.yml#/thumbs"

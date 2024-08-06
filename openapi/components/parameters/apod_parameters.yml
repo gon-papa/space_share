@@ -1,0 +1,42 @@
+date:
+  name: date
+  in: query
+  description: 取得したいAPOD画像の日付
+  required: false
+  schema:
+    type: string
+    format: date
+
+start_date:
+  name: start_date
+  in: query
+  description: 日付範囲の開始日。日付範囲でのデータを要求する場合に使用。`date`と一緒に使用できません。
+  required: false
+  schema:
+    type: string
+    format: date
+
+end_date:
+  name: end_date
+  in: query
+  description: 日付範囲の終了日。`start_date`と一緒に使用。
+  required: false
+  schema:
+    type: string
+    format: date
+
+count:
+  name: count
+  in: query
+  description: 指定した場合、ランダムに選ばれた`count`数の画像が返されます。`date`または`start_date`と`end_date`と一緒に使用できません。
+  required: false
+  schema:
+    type: integer
+
+thumbs:
+  name: thumbs
+  in: query
+  description: ビデオのサムネイルのURLを返します。APODがビデオでない場合、このパラメータは無視されます。
+  required: false
+  schema:
+    type: boolean
