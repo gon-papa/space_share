@@ -1,0 +1,5 @@
+description: 成功したレスポンス
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/EPICNaturalResponse.yml

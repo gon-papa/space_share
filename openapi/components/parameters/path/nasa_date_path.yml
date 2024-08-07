@@ -1,0 +1,7 @@
+name: date
+in: path
+description: 画像を取得する日付（YYYY-MM-DD形式）。
+required: true
+schema:
+  type: string
+  format: date

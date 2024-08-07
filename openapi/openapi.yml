@@ -13,6 +13,8 @@ paths:
     $ref: paths/planetary_apod.yml
   /EPIC/api/natural:
     $ref: paths/epic_natural.yml
+  /EPIC/natural/date/{date}:
+    $ref: paths/epic_natural_date.yml
 components:
   securitySchemes:
     apiKeyAuth:

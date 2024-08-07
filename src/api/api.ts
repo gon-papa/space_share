@@ -473,6 +473,43 @@ export const EPICApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 指定された日付の自然色画像のメタデータを取得します。
+         * @summary 日付で自然色画像を取得
+         * @param {string} date 画像を取得する日付（YYYY-MM-DD形式）。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEpicNaturalDate: async (date: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'date' is not null or undefined
+            assertParamExists('getEpicNaturalDate', 'date', date)
+            const localVarPath = `/EPIC/natural/date/{date}`
+                .replace(`{${"date"}}`, encodeURIComponent(String(date)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication apiKeyAuth required
+            await setApiKeyToObject(localVarQueryParameter, "api_key", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -495,6 +532,19 @@ export const EPICApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['EPICApi.getEpicNatural']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 指定された日付の自然色画像のメタデータを取得します。
+         * @summary 日付で自然色画像を取得
+         * @param {string} date 画像を取得する日付（YYYY-MM-DD形式）。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEpicNaturalDate(date: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EPICNaturalResponseInner>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEpicNaturalDate(date, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['EPICApi.getEpicNaturalDate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -513,6 +563,16 @@ export const EPICApiFactory = function (configuration?: Configuration, basePath?
          */
         getEpicNatural(options?: any): AxiosPromise<Array<EPICNaturalResponseInner>> {
             return localVarFp.getEpicNatural(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 指定された日付の自然色画像のメタデータを取得します。
+         * @summary 日付で自然色画像を取得
+         * @param {string} date 画像を取得する日付（YYYY-MM-DD形式）。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEpicNaturalDate(date: string, options?: any): AxiosPromise<Array<EPICNaturalResponseInner>> {
+            return localVarFp.getEpicNaturalDate(date, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -533,6 +593,18 @@ export class EPICApi extends BaseAPI {
      */
     public getEpicNatural(options?: RawAxiosRequestConfig) {
         return EPICApiFp(this.configuration).getEpicNatural(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 指定された日付の自然色画像のメタデータを取得します。
+     * @summary 日付で自然色画像を取得
+     * @param {string} date 画像を取得する日付（YYYY-MM-DD形式）。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EPICApi
+     */
+    public getEpicNaturalDate(date: string, options?: RawAxiosRequestConfig) {
+        return EPICApiFp(this.configuration).getEpicNaturalDate(date, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
