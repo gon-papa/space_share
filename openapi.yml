@@ -31,6 +31,22 @@ paths:
           $ref: '#/components/responses/APODSuccess'
         '400':
           $ref: '#/components/responses/APODError'
+  /EPIC/api/natural:
+    get:
+      servers:
+        - url: https://api.nasa.gov
+      tags:
+        - EPIC
+      operationId: getEpicNatural
+      summary: 自然色画像を取得
+      description: 最新の自然色画像の日付に関するメタデータを取得します。
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/EPICNaturalSuccess'
+        '400':
+          $ref: '#/components/responses/EPICNaturalError'
 components:
   securitySchemes:
     apiKeyAuth:
@@ -127,6 +143,81 @@ components:
         service_version:
           type: string
           example: v1
+    EPICNaturalResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          image:
+            type: string
+            description: 画像の名前
+          date:
+            type: string
+            format: date
+            description: 画像の日付
+          caption:
+            type: string
+            description: 画像のキャプション
+          centroid_coordinates:
+            type: object
+            properties:
+              lat:
+                type: number
+                description: 中心の緯度
+              lon:
+                type: number
+                description: 中心の経度
+          dscovr_j2000_position:
+            type: object
+            properties:
+              x:
+                type: number
+                description: DSCOVRのJ2000座標のX値
+              'y':
+                type: number
+                description: DSCOVRのJ2000座標のY値
+              z:
+                type: number
+                description: DSCOVRのJ2000座標のZ値
+          lunar_j2000_position:
+            type: object
+            properties:
+              x:
+                type: number
+                description: 月のJ2000座標のX値
+              'y':
+                type: number
+                description: 月のJ2000座標のY値
+              z:
+                type: number
+                description: 月のJ2000座標のZ値
+          sun_j2000_position:
+            type: object
+            properties:
+              x:
+                type: number
+                description: 太陽のJ2000座標のX値
+              'y':
+                type: number
+                description: 太陽のJ2000座標のY値
+              z:
+                type: number
+                description: 太陽のJ2000座標のZ値
+          attitude_quaternions:
+            type: object
+            properties:
+              q0:
+                type: number
+                description: クォータニオンのQ0成分
+              q1:
+                type: number
+                description: クォータニオンのQ1成分
+              q2:
+                type: number
+                description: クォータニオンのQ2成分
+              q3:
+                type: number
+                description: クォータニオンのQ3成分
   responses:
     APODSuccess:
       description: 成功したレスポンス
@@ -135,6 +226,18 @@ components:
           schema:
             $ref: '#/components/schemas/APODResponse'
     APODError:
+      description: リクエストが不正な場合
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NASABadResponse'
+    EPICNaturalSuccess:
+      description: 成功したレスポンス
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EPICNaturalResponse'
+    EPICNaturalError:
       description: リクエストが不正な場合
       content:
         application/json:

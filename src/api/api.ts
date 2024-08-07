@@ -81,6 +81,186 @@ export interface APODResponse {
 /**
  * 
  * @export
+ * @interface EPICNaturalResponseInner
+ */
+export interface EPICNaturalResponseInner {
+    /**
+     * 画像の名前
+     * @type {string}
+     * @memberof EPICNaturalResponseInner
+     */
+    'image'?: string;
+    /**
+     * 画像の日付
+     * @type {string}
+     * @memberof EPICNaturalResponseInner
+     */
+    'date'?: string;
+    /**
+     * 画像のキャプション
+     * @type {string}
+     * @memberof EPICNaturalResponseInner
+     */
+    'caption'?: string;
+    /**
+     * 
+     * @type {EPICNaturalResponseInnerCentroidCoordinates}
+     * @memberof EPICNaturalResponseInner
+     */
+    'centroid_coordinates'?: EPICNaturalResponseInnerCentroidCoordinates;
+    /**
+     * 
+     * @type {EPICNaturalResponseInnerDscovrJ2000Position}
+     * @memberof EPICNaturalResponseInner
+     */
+    'dscovr_j2000_position'?: EPICNaturalResponseInnerDscovrJ2000Position;
+    /**
+     * 
+     * @type {EPICNaturalResponseInnerLunarJ2000Position}
+     * @memberof EPICNaturalResponseInner
+     */
+    'lunar_j2000_position'?: EPICNaturalResponseInnerLunarJ2000Position;
+    /**
+     * 
+     * @type {EPICNaturalResponseInnerSunJ2000Position}
+     * @memberof EPICNaturalResponseInner
+     */
+    'sun_j2000_position'?: EPICNaturalResponseInnerSunJ2000Position;
+    /**
+     * 
+     * @type {EPICNaturalResponseInnerAttitudeQuaternions}
+     * @memberof EPICNaturalResponseInner
+     */
+    'attitude_quaternions'?: EPICNaturalResponseInnerAttitudeQuaternions;
+}
+/**
+ * 
+ * @export
+ * @interface EPICNaturalResponseInnerAttitudeQuaternions
+ */
+export interface EPICNaturalResponseInnerAttitudeQuaternions {
+    /**
+     * クォータニオンのQ0成分
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerAttitudeQuaternions
+     */
+    'q0'?: number;
+    /**
+     * クォータニオンのQ1成分
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerAttitudeQuaternions
+     */
+    'q1'?: number;
+    /**
+     * クォータニオンのQ2成分
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerAttitudeQuaternions
+     */
+    'q2'?: number;
+    /**
+     * クォータニオンのQ3成分
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerAttitudeQuaternions
+     */
+    'q3'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface EPICNaturalResponseInnerCentroidCoordinates
+ */
+export interface EPICNaturalResponseInnerCentroidCoordinates {
+    /**
+     * 中心の緯度
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerCentroidCoordinates
+     */
+    'lat'?: number;
+    /**
+     * 中心の経度
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerCentroidCoordinates
+     */
+    'lon'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface EPICNaturalResponseInnerDscovrJ2000Position
+ */
+export interface EPICNaturalResponseInnerDscovrJ2000Position {
+    /**
+     * DSCOVRのJ2000座標のX値
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerDscovrJ2000Position
+     */
+    'x'?: number;
+    /**
+     * DSCOVRのJ2000座標のY値
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerDscovrJ2000Position
+     */
+    'y'?: number;
+    /**
+     * DSCOVRのJ2000座標のZ値
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerDscovrJ2000Position
+     */
+    'z'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface EPICNaturalResponseInnerLunarJ2000Position
+ */
+export interface EPICNaturalResponseInnerLunarJ2000Position {
+    /**
+     * 月のJ2000座標のX値
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerLunarJ2000Position
+     */
+    'x'?: number;
+    /**
+     * 月のJ2000座標のY値
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerLunarJ2000Position
+     */
+    'y'?: number;
+    /**
+     * 月のJ2000座標のZ値
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerLunarJ2000Position
+     */
+    'z'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface EPICNaturalResponseInnerSunJ2000Position
+ */
+export interface EPICNaturalResponseInnerSunJ2000Position {
+    /**
+     * 太陽のJ2000座標のX値
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerSunJ2000Position
+     */
+    'x'?: number;
+    /**
+     * 太陽のJ2000座標のY値
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerSunJ2000Position
+     */
+    'y'?: number;
+    /**
+     * 太陽のJ2000座標のZ値
+     * @type {number}
+     * @memberof EPICNaturalResponseInnerSunJ2000Position
+     */
+    'z'?: number;
+}
+/**
+ * 
+ * @export
  * @interface NASABadResponse
  */
 export interface NASABadResponse {
@@ -249,6 +429,110 @@ export class APODApi extends BaseAPI {
      */
     public getApod(date?: string, startDate?: string, endDate?: string, count?: number, thumbs?: boolean, options?: RawAxiosRequestConfig) {
         return APODApiFp(this.configuration).getApod(date, startDate, endDate, count, thumbs, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * EPICApi - axios parameter creator
+ * @export
+ */
+export const EPICApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 最新の自然色画像の日付に関するメタデータを取得します。
+         * @summary 自然色画像を取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEpicNatural: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/EPIC/api/natural`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication apiKeyAuth required
+            await setApiKeyToObject(localVarQueryParameter, "api_key", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * EPICApi - functional programming interface
+ * @export
+ */
+export const EPICApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = EPICApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 最新の自然色画像の日付に関するメタデータを取得します。
+         * @summary 自然色画像を取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEpicNatural(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EPICNaturalResponseInner>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEpicNatural(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['EPICApi.getEpicNatural']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * EPICApi - factory interface
+ * @export
+ */
+export const EPICApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = EPICApiFp(configuration)
+    return {
+        /**
+         * 最新の自然色画像の日付に関するメタデータを取得します。
+         * @summary 自然色画像を取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEpicNatural(options?: any): AxiosPromise<Array<EPICNaturalResponseInner>> {
+            return localVarFp.getEpicNatural(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * EPICApi - object-oriented interface
+ * @export
+ * @class EPICApi
+ * @extends {BaseAPI}
+ */
+export class EPICApi extends BaseAPI {
+    /**
+     * 最新の自然色画像の日付に関するメタデータを取得します。
+     * @summary 自然色画像を取得
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EPICApi
+     */
+    public getEpicNatural(options?: RawAxiosRequestConfig) {
+        return EPICApiFp(this.configuration).getEpicNatural(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

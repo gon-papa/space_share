@@ -11,6 +11,8 @@ servers:
 paths:
   /planetary/apod:
     $ref: paths/planetary_apod.yml
+  /EPIC/api/natural:
+    $ref: paths/epic_natural.yml
 components:
   securitySchemes:
     apiKeyAuth:

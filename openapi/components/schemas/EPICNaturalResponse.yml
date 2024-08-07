@@ -1,0 +1,74 @@
+type: array
+items:
+  type: object
+  properties:
+    image:
+      type: string
+      description: 画像の名前
+    date:
+      type: string
+      format: date
+      description: 画像の日付
+    caption:
+      type: string
+      description: 画像のキャプション
+    centroid_coordinates:
+      type: object
+      properties:
+        lat:
+          type: number
+          description: 中心の緯度
+        lon:
+          type: number
+          description: 中心の経度
+    dscovr_j2000_position:
+      type: object
+      properties:
+        x:
+          type: number
+          description: DSCOVRのJ2000座標のX値
+        y:
+          type: number
+          description: DSCOVRのJ2000座標のY値
+        z:
+          type: number
+          description: DSCOVRのJ2000座標のZ値
+    lunar_j2000_position:
+      type: object
+      properties:
+        x:
+          type: number
+          description: 月のJ2000座標のX値
+        y:
+          type: number
+          description: 月のJ2000座標のY値
+        z:
+          type: number
+          description: 月のJ2000座標のZ値
+    sun_j2000_position:
+      type: object
+      properties:
+        x:
+          type: number
+          description: 太陽のJ2000座標のX値
+        y:
+          type: number
+          description: 太陽のJ2000座標のY値
+        z:
+          type: number
+          description: 太陽のJ2000座標のZ値
+    attitude_quaternions:
+      type: object
+      properties:
+        q0:
+          type: number
+          description: クォータニオンのQ0成分
+        q1:
+          type: number
+          description: クォータニオンのQ1成分
+        q2:
+          type: number
+          description: クォータニオンのQ2成分
+        q3:
+          type: number
+          description: クォータニオンのQ3成分
