@@ -1,16 +1,18 @@
 type AppConfig = {
   nasaApiKey: string;
   nasaBaseApiPath: string;
+  defaultApodDate: string;
 };
 
 export const appConfig: AppConfig = {
-  nasaApiKey: validateValue(
-    process.env.NEXT_PUBLIC_NASA_API_KEY,
-    "NEXT_PUBLIC_NASA_API_KEY"
-  ),
+  nasaApiKey: validateValue(process.env.NASA_API_KEY, "NASA_API_KEY"),
   nasaBaseApiPath: validateValue(
-    process.env.NEXT_PUBLIC_NASA_BASE_API_PATH,
-    "NEXT_PUBLIC_NASA_BASE_API_PATH"
+    process.env.NASA_BASE_API_PATH,
+    "NASA_BASE_API_PATH"
+  ),
+  defaultApodDate: validateValue(
+    process.env.DEFAULT_APOD_DATE,
+    "DEFAULT_APOD_DATE"
   ),
 };
 
