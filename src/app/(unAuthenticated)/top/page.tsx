@@ -1,16 +1,16 @@
-"use client";
+import ApodInfo from "@/components/unAuthenticated/top/apod-info";
+import { apodFetch } from "@/service/unAuthenticated/apod-service";
 import { Box } from "@mui/material";
 import React from "react";
-import { useGetApod } from "../../../hooks/unAuthenticated/top/apod-hook";
 
-export default function Top() {
-  const data = useGetApod();
-  const apodData = data;
+const Top = async () => {
+  const data = await apodFetch();
 
   return (
     <div>
-      {apodData && <div>{apodData.isSuccess}</div>}
-      <Box>top</Box>
+      <ApodInfo data={data} />
     </div>
   );
-}
+};
+
+export default Top;
