@@ -15,7 +15,6 @@ rules:
   my-local-plugin/enum-snake-case: error
 theme:
   openapi:
-    htmlTemplate: ./docs/index.html
     generateCodeSamples:
       languages: # Array of language config objects; indicates in which languages to generate code samples.
         - lang: curl
