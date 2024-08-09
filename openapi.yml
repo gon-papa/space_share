@@ -19,11 +19,11 @@ paths:
       summary: 天文学の画像日報
       description: 天文学の画像日報（APOD）を取得します。
       parameters:
-        - $ref: '#/components/parameters/date'
-        - $ref: '#/components/parameters/start_date'
-        - $ref: '#/components/parameters/end_date'
-        - $ref: '#/components/parameters/count'
-        - $ref: '#/components/parameters/thumbs'
+        - $ref: '#/components/parameters/nasa_date_query'
+        - $ref: '#/components/parameters/nasa_start_date_query'
+        - $ref: '#/components/parameters/nasa_end_date_query'
+        - $ref: '#/components/parameters/nasa_count_query'
+        - $ref: '#/components/parameters/nasa_thumbs_query'
       security:
         - apiKeyAuth: []
       responses:
@@ -31,6 +31,40 @@ paths:
           $ref: '#/components/responses/APODSuccess'
         '400':
           $ref: '#/components/responses/APODError'
+  /EPIC/api/natural:
+    get:
+      servers:
+        - url: https://api.nasa.gov
+      tags:
+        - EPIC
+      operationId: getEpicNatural
+      summary: 自然色画像を取得
+      description: 最新の自然色画像の日付に関するメタデータを取得します。
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/EPICNaturalSuccess'
+        '400':
+          $ref: '#/components/responses/EPICNaturalError'
+  /EPIC/natural/date/{date}:
+    get:
+      servers:
+        - url: https://api.nasa.gov
+      tags:
+        - EPIC
+      operationId: getEpicNaturalDate
+      summary: 日付で自然色画像を取得
+      description: 指定された日付の自然色画像のメタデータを取得します。
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/nasa_date_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/EPICNaturalDateSuccess'
+        '400':
+          $ref: '#/components/responses/EPICNaturalError'
 components:
   securitySchemes:
     apiKeyAuth:
@@ -38,7 +72,7 @@ components:
       in: query
       name: api_key
   parameters:
-    date:
+    nasa_date_query:
       name: date
       in: query
       description: 取得したいAPOD画像の日付
@@ -46,7 +80,7 @@ components:
       schema:
         type: string
         format: date
-    start_date:
+    nasa_start_date_query:
       name: start_date
       in: query
       description: 日付範囲の開始日。日付範囲でのデータを要求する場合に使用。`date`と一緒に使用できません。
@@ -54,7 +88,7 @@ components:
       schema:
         type: string
         format: date
-    end_date:
+    nasa_end_date_query:
       name: end_date
       in: query
       description: 日付範囲の終了日。`start_date`と一緒に使用。
@@ -62,20 +96,28 @@ components:
       schema:
         type: string
         format: date
-    count:
+    nasa_count_query:
       name: count
       in: query
       description: 指定した場合、ランダムに選ばれた`count`数の画像が返されます。`date`または`start_date`と`end_date`と一緒に使用できません。
       required: false
       schema:
         type: integer
-    thumbs:
+    nasa_thumbs_query:
       name: thumbs
       in: query
       description: ビデオのサムネイルのURLを返します。APODがビデオでない場合、このパラメータは無視されます。
       required: false
       schema:
         type: boolean
+    nasa_date_path:
+      name: date
+      in: path
+      description: 画像を取得する日付（YYYY-MM-DD形式）。
+      required: true
+      schema:
+        type: string
+        format: date
   schemas:
     APODResponse:
       type: object
@@ -127,6 +169,81 @@ components:
         service_version:
           type: string
           example: v1
+    EPICNaturalResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          image:
+            type: string
+            description: 画像の名前
+          date:
+            type: string
+            format: date
+            description: 画像の日付
+          caption:
+            type: string
+            description: 画像のキャプション
+          centroid_coordinates:
+            type: object
+            properties:
+              lat:
+                type: number
+                description: 中心の緯度
+              lon:
+                type: number
+                description: 中心の経度
+          dscovr_j2000_position:
+            type: object
+            properties:
+              x:
+                type: number
+                description: DSCOVRのJ2000座標のX値
+              'y':
+                type: number
+                description: DSCOVRのJ2000座標のY値
+              z:
+                type: number
+                description: DSCOVRのJ2000座標のZ値
+          lunar_j2000_position:
+            type: object
+            properties:
+              x:
+                type: number
+                description: 月のJ2000座標のX値
+              'y':
+                type: number
+                description: 月のJ2000座標のY値
+              z:
+                type: number
+                description: 月のJ2000座標のZ値
+          sun_j2000_position:
+            type: object
+            properties:
+              x:
+                type: number
+                description: 太陽のJ2000座標のX値
+              'y':
+                type: number
+                description: 太陽のJ2000座標のY値
+              z:
+                type: number
+                description: 太陽のJ2000座標のZ値
+          attitude_quaternions:
+            type: object
+            properties:
+              q0:
+                type: number
+                description: クォータニオンのQ0成分
+              q1:
+                type: number
+                description: クォータニオンのQ1成分
+              q2:
+                type: number
+                description: クォータニオンのQ2成分
+              q3:
+                type: number
+                description: クォータニオンのQ3成分
   responses:
     APODSuccess:
       description: 成功したレスポンス
@@ -140,3 +257,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/NASABadResponse'
+    EPICNaturalSuccess:
+      description: 成功したレスポンス
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EPICNaturalResponse'
+    EPICNaturalError:
+      description: リクエストが不正な場合
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NASABadResponse'
+    EPICNaturalDateSuccess:
+      description: 成功したレスポンス
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EPICNaturalResponse'

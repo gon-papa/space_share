@@ -6,6 +6,7 @@ extends:
   - recommended
 rules:
   info-license: off
+  no-server-example.com: off
   no-unused-components: error
   my-local-plugin/query-param-snake-case: error
   my-local-plugin/schema-property-snake-case: error
@@ -14,7 +15,6 @@ rules:
   my-local-plugin/enum-snake-case: error
 theme:
   openapi:
-    htmlTemplate: ./docs/index.html
     generateCodeSamples:
       languages: # Array of language config objects; indicates in which languages to generate code samples.
         - lang: curl

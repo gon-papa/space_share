@@ -89,4 +89,16 @@ export const operationServerMap: ServerMap = {
             description: "No description provided",
         }
     ],
+    "EPICApi.getEpicNatural": [
+        {
+            url: "https://api.nasa.gov",
+            description: "No description provided",
+        }
+    ],
+    "EPICApi.getEpicNaturalDate": [
+        {
+            url: "https://api.nasa.gov",
+            description: "No description provided",
+        }
+    ],
 }

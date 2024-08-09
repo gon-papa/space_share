@@ -7,11 +7,11 @@ get:
   summary: 天文学の画像日報
   description: 天文学の画像日報（APOD）を取得します。
   parameters:
-    - $ref: ../components/parameters/date.yml
-    - $ref: ../components/parameters/start_date.yml
-    - $ref: ../components/parameters/end_date.yml
-    - $ref: ../components/parameters/count.yml
-    - $ref: ../components/parameters/thumbs.yml
+    - $ref: ../components/parameters/query/nasa_date_query.yml
+    - $ref: ../components/parameters/query/nasa_start_date_query.yml
+    - $ref: ../components/parameters/query/nasa_end_date_query.yml
+    - $ref: ../components/parameters/query/nasa_count_query.yml
+    - $ref: ../components/parameters/query/nasa_thumbs_query.yml
   security:
     - apiKeyAuth: []
   responses:

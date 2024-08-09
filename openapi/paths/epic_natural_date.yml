@@ -1,0 +1,17 @@
+get:
+  servers:
+    - url: https://api.nasa.gov
+  tags:
+    - EPIC
+  operationId: getEpicNaturalDate
+  summary: 日付で自然色画像を取得
+  description: 指定された日付の自然色画像のメタデータを取得します。
+  security:
+    - apiKeyAuth: []
+  parameters:
+    - $ref: ../components/parameters/path/nasa_date_path.yml
+  responses:
+    "200":
+      $ref: ../components/responses/EPICNaturalDateSuccess.yml
+    "400":
+      $ref: ../components/responses/EPICNaturalError.yml

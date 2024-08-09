@@ -4,10 +4,17 @@
 openapi:
 	npx redocly bundle openapi/openapi.yml -o openapi.yml
 
+openapi-html:
+	npx redocly build-docs ./openapi.yml -o openapi.html
+
 openapi-lint:
 	npx redocly lint openapi/openapi.yml
 
 schema:
 	make openapi-lint
 	make openapi
-	npx openapi-generator-cli generate -i ./openapi.yml -g typescript-axios -o ./api
+	make openapi-html
+	npx openapi-generator-cli generate -i ./openapi.yml -g typescript-axios -o ./src/api
+
+openapi-split: # 一枚のopenapi.ymlを複数のファイルに分割する(確定後はほぼ使用することはない)
+	npx redocly split openapi.yml --outDir=./openapi 
