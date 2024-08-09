@@ -1,14 +1,8 @@
-"use client";
-
 import React from "react";
-import { ApodData } from "@/service/unAuthenticated/apod-service";
+import { apodFetch } from "@/service/unAuthenticated/apod-service";
 
-interface ApodInfoProps {
-  data: ApodData;
-}
-
-export default function ApodInfo({ data }: ApodInfoProps) {
-  // const { data } = useApod();
+export const ApodInfo = async () => {
+  const data = await apodFetch();
   return (
     <div>
       <h1>今日の1枚</h1>
@@ -19,4 +13,6 @@ export default function ApodInfo({ data }: ApodInfoProps) {
       <img src={data?.url} alt={data?.title} />
     </div>
   );
-}
+};
+
+export default ApodInfo;
