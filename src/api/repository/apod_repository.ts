@@ -56,9 +56,5 @@ export const getApodFetch = async (
     throw new Error("Failed to fetch APOD");
   }
 
-  if (res.data.media_type !== "image") {
-    // apodはたまに動画の場合がある。動画の場合はデフォルトの日付で再取得
-    return getApodFetch(appConfig.defaultApodDate);
-  }
   return mappping(res.data);
 };
