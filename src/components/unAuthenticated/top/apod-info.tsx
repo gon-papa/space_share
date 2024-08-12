@@ -1,4 +1,3 @@
-import React, { cache } from "react";
 import { apodFetch } from "@/service/unAuthenticated/apod-service";
 import {
   Box,

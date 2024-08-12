@@ -1,5 +1,3 @@
-"use client";
-import { Box } from "@mui/material";
 import React from "react";
 import { ReactNode } from "react";
 import { Header } from "../../components/common/header";
@@ -18,6 +16,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           paddingBottom: 10,
           paddingLeft: 20,
           paddingRight: 20,
+          background:
+            "linear-gradient(135deg, #001f3f 0%, #007adf 40%, #00ecbc 70%)",
         }}
       >
         {children}

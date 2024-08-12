@@ -17,7 +17,9 @@ export const Header = function () {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             SS Space Share
           </Typography>
-          <Button color="inherit">Sign In</Button>
+          <Button color="inherit" href="/signin">
+            サインイン
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
