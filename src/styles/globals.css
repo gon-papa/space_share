@@ -1,9 +1,14 @@
 /* styles/globals.css */
-
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+main {
+  flex: 1;
+  padding: 10 20;
+  background: linear-gradient(135deg, #001f3f 0%, #007adf 40%, #00ecbc 70%);
 }
 
 .content {
